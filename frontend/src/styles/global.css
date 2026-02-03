@@ -1,0 +1,278 @@
+/* =========================================================
+   GLOBAL RESET & BASE
+========================================================= */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, Roboto, sans-serif;
+  color: #0f172a;
+  background: #f8fafc;
+}
+
+/* =========================================================
+   DESIGN TOKENS (AI + APP THEME)
+========================================================= */
+:root {
+  /* Light mode defaults */
+  --bg-page: #f8fafc;
+  --bg-surface: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-soft: rgba(0, 0, 0, 0.08);
+
+  /* Accent */
+  --accent: #38bdf8;
+
+  /* AI CHAT (Dark Glass UI) */
+  --bg-dark: #0f172a;
+  --bg-panel: #020617;
+  --bg-ai: #1e293b;
+  --bg-user: #2563eb;
+
+  --radius: 14px;
+  --radius-sm: 10px;
+
+  --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* =========================================================
+   LAYOUT (EXISTING APP STYLES – PRESERVED)
+========================================================= */
+.container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 2rem;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.navbar ul {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+}
+
+.hero {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+section {
+  padding: 4rem 2rem;
+}
+
+.card {
+  background: var(--bg-surface);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.footer {
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-muted);
+}
+
+/* =========================================================
+   AI CHAT WINDOW (GLASS EFFECT)
+========================================================= */
+.chat-window {
+  max-width: 780px;
+  margin: 5rem auto;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 23, 42, 0.95),
+    rgba(2, 6, 23, 0.98)
+  );
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  padding: 1.5rem;
+  color: #e5e7eb;
+}
+
+/* =========================================================
+   CHAT HEADER + MEMORY SIGNAL
+========================================================= */
+.chat-header {
+  margin-bottom: 1rem;
+}
+
+.chat-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.memory-badge {
+  font-size: 0.75rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(56, 189, 248, 0.15);
+  color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.35),
+              0 0 12px rgba(56, 189, 248, 0.25);
+}
+
+.memory-hint {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  margin: 0.3rem 0 0.2rem;
+}
+
+/* Reset Memory (Pro Move) */
+.reset-btn {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 0.7rem;
+  cursor: pointer;
+  padding: 0;
+  margin-top: 0.3rem;
+  align-self: flex-start;
+}
+
+.reset-btn:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+/* =========================================================
+   CHAT MESSAGES
+========================================================= */
+.messages {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.message {
+  max-width: 85%;
+  padding: 0.9rem 1.1rem;
+  border-radius: var(--radius-sm);
+  line-height: 1.45;
+  animation: fadeSlide 0.35s ease forwards;
+}
+
+.message.ai {
+  align-self: flex-start;
+  background: var(--bg-ai);
+  color: #e5e7eb;
+  border-left: 3px solid var(--accent);
+}
+
+.message.user {
+  align-self: flex-end;
+  background: var(--bg-user);
+  color: #ffffff;
+}
+
+/* =========================================================
+   MESSAGE ANIMATION
+========================================================= */
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================================================
+   SUGGESTED PROMPTS (OPTIONAL)
+========================================================= */
+.suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+
+.suggestions button {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #94a3b8;
+  padding: 0.45rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.suggestions button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   INPUT ROW
+========================================================= */
+.input-row {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.input-row input {
+  flex: 1;
+  background: var(--bg-panel);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #e5e7eb;
+  padding: 0.7rem 0.9rem;
+  border-radius: var(--radius-sm);
+}
+
+.input-row input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.input-row button {
+  background: var(--accent);
+  color: #020617;
+  border: none;
+  padding: 0 1.1rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.input-row button:hover {
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   THINKING DOTS ANIMATION
+========================================================= */
+.thinking::after {
+  content: "";
+  animation: dots 1.2s steps(3, end) infinite;
+}
+
+@keyframes dots {
+  0% { content: ""; }
+  33% { content: "."; }
+  66% { content: ".."; }
+  100% { content: "..."; }
+}
